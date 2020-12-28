@@ -21,5 +21,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	city : attributes.uriParams.city
 }]]]></http:uri-params>
 		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="4b35f6c9-a54d-4122-8e0f-3a012fdbb747" message="Output for API is #[payload]"/>
 	</flow>
 </mule>
