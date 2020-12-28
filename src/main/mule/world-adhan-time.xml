@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="8c69e774-99f6-40b0-a162-ba0334828d0d" basePath="/adhan-time" >
+		<http:listener-connection host="0.0.0.0" port="8011" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="4641d56b-d4f7-4c95-9404-7955aa5d6a92" basePath="/v1" >
+		<http:request-connection host="api.aladhan.com" />
+	</http:request-config>
+	<flow name="world-adhan-timeFlow" doc:id="05f7d56a-7365-4d49-af7e-4826286fa447" >
+		<http:listener doc:name="Listener" doc:id="4b604388-2d1c-466d-8369-077e9f305299" config-ref="HTTP_Listener_config" path="/{city}/{country}"/>
+		<http:request method="GET" doc:name="Get api.aladhan.com" doc:id="81509b87-5826-4c43-8573-e3902cb503f3" config-ref="HTTP_Request_configuration" path="/timingsByCity?city={city}&amp;country={country}&amp;method={method}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	country : attributes.uriParams.country,
+	method : 8,
+	city : attributes.uriParams.city
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+</mule>
