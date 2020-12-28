@@ -31,7 +31,21 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-				</configuration>
+				    <cloudHubDeployment>
+				      <uri>https://anypoint.mulesoft.com</uri>
+				      <muleVersion>4.3.0</muleVersion>
+				      <businessGroup></businessGroup>
+				      <username>nahidshahin_pc</username>
+				      <password>Dynamic312</password>
+				      <applicationName>world-adhan-time-service</applicationName>
+				      <environment>PLAYGROUND</environment>
+					  <objectStoreV2>true</objectStoreV2>
+					  <persistentQueues>true</persistentQueues>				      
+				      <region>us-east-2</region>
+				      <workers>1</workers>
+				      <workerType>MICRO</workerType>
+				    </cloudHubDeployment>
+				  </configuration>				
 			</plugin>
 		</plugins>
 	</build>
