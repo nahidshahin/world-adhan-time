@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="world-adhan-time-test-suite.xml" />
+	<flow name="world-adhan-time-test-set-uriParams-Flow" doc:id="b1dc4974-c843-4c35-a083-c1b4e4ae612f" >
+		<munit:set-event doc:name="Set uriParams" doc:id="bfec186c-254b-442a-b3ac-b68f418ed563">
+				<munit:attributes value="#[{uriParams:{city:'Dhaka', country:'Bangladesh'}}]" />
+				<munit:attributes value="#[{uriParams:{city:'Dhaka', country:'Bangladesh'}}]" />
+				<munit:attributes value="#[{uriParams:{city:'Dhaka', country:'Bangladesh'}}]" />
+			</munit:set-event>
+	</flow>
+	<munit:test name="world-adhan-time-test-suite-world-adhan-time-PayloadTest" doc:id="18d10bd8-dabb-408f-bc98-e4b91bf5da01" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="8aa37a4a-52e2-41b1-9813-0dd15421a101" name="world-adhan-time-test-set-uriParams-Flow"/>
+			<flow-ref doc:name="Flow-ref to world-adhan-timeFlow" doc:id="e2a8377d-9fba-44c6-bc22-a4275fd126b4" name="world-adhan-timeFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="f9f4bd9b-387e-4546-abf3-83b59315bff8" expression="#[payload]" is="#[MunitTools::notNullValue()]" message="Payload is null"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="world-adhan-time-test-suite-world-adhan-time-RseStatusTest" doc:id="019116d2-7d91-4087-aef6-8885d58e7e29" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="3561f1d1-bfde-447d-8b42-97dc99f124b6" name="world-adhan-time-test-set-uriParams-Flow"/>
+			<flow-ref doc:name="Flow-ref to world-adhan-timeFlow" doc:id="a9181680-0505-4a15-8bc9-f5b0b862c4c8" name="world-adhan-timeFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="85a28dae-b12c-4667-b525-7c4a01ca1730" is="#[MunitTools::equalTo('OK')]" expression="#[payload.status]" message="Response status is not correct"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="world-adhan-time-test-suite-world-adhan-time-MediaTypeTest" doc:id="5e48112c-27f2-47db-8ab7-e7a13952a9f6" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="913b3b32-b04c-45b0-bbca-ffa1de457da1" name="world-adhan-time-test-set-uriParams-Flow"/>
+			<flow-ref doc:name="Flow-ref to world-adhan-timeFlow" doc:id="3b4a5555-e8e2-4b9b-a0b6-f6ca1efa83a3" name="world-adhan-timeFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="b126973a-7b19-4d8f-9ef1-6476ed8489ce" is="#[MunitTools::withMediaType('application/json')]" expression="#[payload]" message="Invalid media type"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
